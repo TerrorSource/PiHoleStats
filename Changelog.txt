@@ -1,3 +1,7 @@
+0.1.0
+- added editable refresh rate
+- 
+
 0.0.9
 - fixed "Opslaan" button bug
 - fixed code error with Tile

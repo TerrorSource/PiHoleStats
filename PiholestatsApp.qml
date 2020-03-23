@@ -19,13 +19,14 @@ App {
 	property bool showAppIcon : true
 	property bool firstTimeShown : true
 	property variant piholeConfigJSON
-
-// data in XML string format
 	property bool piholeDataRead: false
+	
+// app settings
 	property string connectionPath
 	property string ipadres
 	property string poortnummer : "80"
-
+    property int refreshrate  : 60	// interval to retrieve data
+	
 // user settings from config file
 	property variant userSettingsJSON : {
 		'connectionPath': [],
@@ -56,11 +57,12 @@ App {
 			var splitVar = connectionPath.split(":")
 			ipadres = splitVar[0];
 			poortnummer = splitVar[1];
-			if (poortnummer.length < 2) poortnummer = "80";		
+			if (poortnummer.length < 2) poortnummer = "80";
+			refreshrate = userSettingsJSON['refreshrate'];
 		} catch(e) {
 		}
-
-		datetimeTimer.start();
+		refreshScreen();
+//		datetimeTimer.start();
 	}
 
 // refresh screen
@@ -75,6 +77,7 @@ App {
 
  		var tmpUserSettingsJSON = {
 			"connectionPath" : ipadres + ":" + poortnummer,
+			"refreshrate" : refreshrate,
 			"ShowTrayIcon" : (showAppIcon) ? "yes" : "no"
 		}
 
@@ -111,7 +114,8 @@ App {
 // Timer in s * 1000
 	Timer {
 		id: datetimeTimer
-		interval: 5000
+//		interval: 5000
+		interval: refreshrate * 1000;
 		running: false
 		repeat: true
 		onTriggered: refreshScreen()

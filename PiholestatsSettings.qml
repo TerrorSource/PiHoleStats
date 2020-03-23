@@ -15,6 +15,7 @@ Screen {
 		showAppIconToggle.isSwitchedOn = app.showAppIcon;
 		ipadresLabel.inputText = app.ipadres;
 		poortnummerLabel.inputText = app.poortnummer;
+		refreshrateLabel.inputText = app.refreshrate;
 		messageShown = false;
 	}
 
@@ -49,6 +50,14 @@ Screen {
 		}
 	}
 
+// Save Refresh rate
+	function saveRefreshRate(text) {
+		if (text) {
+			refreshrateLabel.inputText = text;
+			app.refreshrate = text;
+		}
+	}
+	
 // systray icon toggle
 	Text {
 		id: systrayText
@@ -86,7 +95,7 @@ Screen {
 		height: editipAdresButton.height
 		width: isNxt ? 800 : 600
 		leftText: qsTr("IP-adres Pi-Hole")
-		leftTextAvailableWidth: isNxt ? 500 : 400
+		leftTextAvailableWidth: isNxt ? 600 : 480
 		anchors {
 			left:parent.left
 			leftMargin: isNxt ? 62 : 50
@@ -114,7 +123,7 @@ Screen {
 		id: poortnummerLabel
 		height: editportNumberButton.height
 		width: isNxt ? 800 : 600
-		leftTextAvailableWidth: isNxt ? 500 : 400
+		leftTextAvailableWidth: isNxt ? 600 : 480
 		leftText: qsTr("Port (default is 80)")
 		anchors {
 			left:parent.left
@@ -134,9 +143,36 @@ Screen {
 		}
 		iconSource: "qrc:/tsc/edit.png"
 			onClicked: {
-			qkeyboard.open("voer hier de poort in", poortnummerLabel.inputText, savePoortnummer);
+			qkeyboard.open("Voer hier de poort in", poortnummerLabel.inputText, savePoortnummer);
 		}
 	}
-
+// refresh rate
+	EditTextLabel4421 {
+		id: refreshrateLabel
+		height: editRefreshRateButton.height
+		width: isNxt ? 800 : 600
+		leftTextAvailableWidth: isNxt ? 600 : 480
+		leftText: qsTr("Refresh rate in seconds (default is 60)")
+		anchors {
+			left:parent.left
+			leftMargin: isNxt ? 62 : 50
+			top: poortnummerLabel.bottom
+			topMargin: isNxt ? 25 : 20
+		}
+	}
+	
+	IconButton {
+		id: editRefreshRateButton
+		width: isNxt ? 50 : 40
+		anchors {
+			left:refreshrateLabel.right
+			leftMargin: isNxt ? 12 : 10
+			top: refreshrateLabel.top
+		}
+		iconSource: "qrc:/tsc/edit.png"
+			onClicked: {
+			qkeyboard.open("Voer hier de refresh rate in", refreshrateLabel.inputText, saveRefreshRate);
+		}
+	}
 // end port number		
 }
