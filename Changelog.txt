@@ -1,2 +1,8 @@
+0.0.3
+- renamed files and variables to pihole/piholestats
+
+0.0.2
+- removed tile info, empty tile
+
 0.0.1
 - Empty app, with working config screen

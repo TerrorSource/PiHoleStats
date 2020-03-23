@@ -21,8 +21,8 @@ Screen {
 	onCustomButtonClicked: {
 		app.saveSettings();
 		app.firstTimeShown = true; 
-		app.domoticzDataRead = false;
-		app.readDomoticzConfig();
+		app.piholeDataRead = false;
+		app.readpiholeConfig();
 		hide();
 	}
 

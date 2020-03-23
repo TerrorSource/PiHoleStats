@@ -15,13 +15,13 @@ Screen {
 	onShown: {
 		addCustomTopRightButton("Instellingen");
 		if (app.connectionPath.length < 5) {
-			 app.domoticzSettings.show();
+			 app.piholeSettings.show();
 		}
 	}
 // Open settings screen
 	onCustomButtonClicked: {
-		if (app.domoticzSettings) {
-			 app.domoticzSettings.show();
+		if (app.piholeSettings) {
+			 app.piholeSettings.show();
 		}
 	}
 

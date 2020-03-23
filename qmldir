@@ -1,0 +1,3 @@
+module apps.Piholestats
+piholeScreen 1.0 PiholestatsScreen.qml
+piholeSettings  1.0 PiholestatsSettings.qml

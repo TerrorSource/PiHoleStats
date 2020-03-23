@@ -6,20 +6,20 @@ import FileIO 1.0
 App {
 	id: root
 
-	property url trayUrl : "DomoticzboardTray.qml";
+	property url trayUrl : "PiholestatsTray.qml";
 	property url thumbnailIcon: "qrc:/tsc/DomoticzSystrayIcon.png"
-	property url menuScreenUrl : "DomoticzboardSettings.qml"
-	property url domoticzScreenUrl : "DomoticzboardScreen.qml"
-	property url domoticzTileUrl : "DomoticzboardTile.qml"
-	property DomoticzboardSettings domoticzSettings
-	property DomoticzboardScreen domoticzScreen
+	property url menuScreenUrl : "PiholestatsSettings.qml"
+	property url piholeScreenUrl : "PiholestatsScreen.qml"
+	property url piholeTileUrl : "PiholestatsTile.qml"
+	property PiholestatsSettings piholeSettings
+	property PiholestatsScreen piholeScreen
 
-	property SystrayIcon domoticzTray
+	property SystrayIcon piholeTray
 	property bool showDBIcon : true
-	property variant domoticzConfigJSON
+	property variant piholeConfigJSON
 
 	// Domoticz data in XML string format
-	property bool domoticzDataRead: false
+	property bool piholeDataRead: false
 	
 	property string timeStr
 	property string dateStr
@@ -38,18 +38,15 @@ App {
 // location of settings file
 	FileIO {
 		id: userSettingsFile
-		source: "file:///mnt/data/tsc/domoticzboard.userSettings.json"
+		source: "file:///mnt/data/tsc/piholestats.userSettings.json"
  	}
 
-// Domoticz signals, used to update the listview and filter enabled button
-//	signal domoticzUpdated()
-
 	function init() {
-		registry.registerWidget("systrayIcon", trayUrl, this, "domoticzTray");
-		registry.registerWidget("screen", domoticzScreenUrl, this, "domoticzScreen");
-		registry.registerWidget("screen", menuScreenUrl, this, "domoticzSettings");
+		registry.registerWidget("systrayIcon", trayUrl, this, "piholeTray");
+		registry.registerWidget("screen", piholeScreenUrl, this, "piholeScreen");
+		registry.registerWidget("screen", menuScreenUrl, this, "piholeSettings");
 		registry.registerWidget("menuItem", null, this, null, {objectName: "DBMenuItem", label: qsTr("DB-settings"), image: thumbnailIcon, screenUrl: menuScreenUrl, weight: 120});
-		registry.registerWidget("tile", domoticzTileUrl, this, null, {thumbLabel: "Domoticz", thumbIcon: thumbnailIcon, thumbCategory: "general", thumbWeight: 30, baseTileWeight: 10, thumbIconVAlignment: "center"});
+		registry.registerWidget("tile", piholeTileUrl, this, null, {thumbLabel: "PiHole", thumbIcon: thumbnailIcon, thumbCategory: "general", thumbWeight: 30, baseTileWeight: 10, thumbIconVAlignment: "center"});
 	}
 
 //this function needs to be started after the app is booted.
@@ -71,8 +68,8 @@ App {
 
 // refresh screen
 	function refreshScreen() {
-		domoticzDataRead = false;
-		readDomoticzConfig();
+		piholeDataRead = false;
+		readpiholeConfig();
 	}
 
 // save user settings
@@ -85,24 +82,24 @@ App {
 		}
 
   		var doc3 = new XMLHttpRequest();
-   		doc3.open("PUT", "file:///mnt/data/tsc/domoticzboard.userSettings.json");
+   		doc3.open("PUT", "file:///mnt/data/tsc/piholestats.userSettings.json");
    		doc3.send(JSON.stringify(tmpUserSettingsJSON));
 	}
 
 // read json file
-	function readDomoticzConfig() {
+	function readpiholeConfig() {
 
 		var xmlhttp = new XMLHttpRequest();
 		xmlhttp.onreadystatechange=function() {
 			if (xmlhttp.readyState == 4) {
 				if (xmlhttp.status == 200) {
-					domoticzConfigJSON = JSON.parse(xmlhttp.responseText); 
+					piholeConfigJSON = JSON.parse(xmlhttp.responseText); 
 					convertToXML();
 				}
 			}
 		}
 		xmlhttp.open("GET", "http://"+connectionPath+"/json.htm?type=devices&filter=all&used=true&order=Name", true);
-//		xmlhttp.open("GET", "http://127.0.0.1/hdrv_zwave/domoticzconfig.txt", true);
+//		xmlhttp.open("GET", "http://127.0.0.1/hdrv_zwave/piholeconfig.txt", true);
 		xmlhttp.send();
 	}
 
