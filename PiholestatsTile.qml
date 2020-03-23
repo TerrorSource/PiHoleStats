@@ -10,37 +10,6 @@ Tile {
 		stage.openFullscreen(app.piholeScreenUrl);
 	}
 
-	function simpleSynchronous(request) {
-		var xmlhttp = new XMLHttpRequest();
-		xmlhttp.open("GET", request, true);
-		xmlhttp.onreadystatechange=function() {
-			if (xmlhttp.readyState == 4) {
-				if (xmlhttp.status == 200) {
-					app.refreshScreen();
-				}
-			}
-		}
-		xmlhttp.send();
-	}
-	
-//	function iconToShow(status) {
-//
-//		if (status == "On") {
-//			return app.tilebulb_onvar;
-//		} else {
-//			return app.tilebulb_offvar;
-//		}
-//	}
-	
-//	function iconToShowDim(status) {
-//
-//		if (status == "On") {
-//			return app.dimtilebulb_onvar;
-//		} else {
-//			return app.dimtilebulb_offvar;
-//		}
-//	}
-
 // Title
 	Text {
 		id: tiletitle
@@ -55,7 +24,7 @@ Tile {
 			pixelSize: isNxt ? 25 : 20
 		}
 		color: colors.waTileTextColor
-       	visible: !dimState
+//       	visible: !dimState
 	}
 // line 1 text
 	Text {
@@ -71,8 +40,7 @@ Tile {
 		}
 		font.pixelSize: isNxt ? 20 : 16
 		font.family: qfont.italic.name
-       	visible: !dimState
-		clip: true
+//       	visible: !dimState
 	}
 // line 1 value
 	Text {
@@ -86,8 +54,7 @@ Tile {
 		}
 		font.pixelSize: isNxt ? 20 : 16
 		font.family: qfont.italic.name
-       	visible: !dimState
-		clip: true
+//       	visible: !dimState
 	}
 
 // line 2 text
@@ -101,8 +68,7 @@ Tile {
 		}
 		font.pixelSize: isNxt ? 20 : 16
 		font.family: qfont.italic.name
-       	visible: !dimState
-		clip: true
+//       	visible: !dimState
 	}
 // line 2 value
 	Text {
@@ -115,8 +81,7 @@ Tile {
 		}
 		font.pixelSize: isNxt ? 20 : 16
 		font.family: qfont.italic.name
-       	visible: !dimState
-		clip: true
+//       	visible: !dimState
 	}
 
 // line 3 text
@@ -130,8 +95,7 @@ Tile {
 		}
 		font.pixelSize: isNxt ? 20 : 16
 		font.family: qfont.italic.name
-       	visible: !dimState
-		clip: true
+//       	visible: !dimState
 	}
 // line 3 value
 	Text {
@@ -144,8 +108,7 @@ Tile {
 		}
 		font.pixelSize: isNxt ? 20 : 16
 		font.family: qfont.italic.name
-       	visible: !dimState
-		clip: true
+//       	visible: !dimState
 	}
 
 }

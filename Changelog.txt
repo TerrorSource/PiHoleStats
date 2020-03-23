@@ -1,3 +1,7 @@
+0.0.7
+- cleaned tile coded
+- show tile info in dimstate
+
 0.0.6
 - coded tile layout and information
 
