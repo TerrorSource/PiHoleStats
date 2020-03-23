@@ -15,8 +15,8 @@ SystrayIcon {
 	}
 
 	Image {
-		id: imgDomoticz
+		id: imgPihole
 		anchors.centerIn: parent
-		source: "qrc:/tsc/LightbulbSystrayIcon.png"
+		source: "qrc:/tsc/pihole_logo_30x30.png"
 	}
 }

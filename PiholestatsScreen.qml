@@ -6,7 +6,7 @@ import qb.base 1.0
 Screen {
 	id: root
 	
-	screenTitleIconUrl: "qrc:/tsc/DomoticzSystrayIcon.png"
+	screenTitleIconUrl: "qrc:/tsc/pihole_logo_40x40.png"
 	screenTitle: "Pi-Hole Stats"
 //	property int currentIndex : -1
 

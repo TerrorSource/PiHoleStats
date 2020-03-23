@@ -5,14 +5,14 @@ import BasicUIControls 1.0
 Screen {
 	id: root
 	screenTitle: qsTr("Pi-Hole Instellingen")
-	screenTitleIconUrl: "qrc:/tsc/DomoticzSystrayIcon.png"
+	screenTitleIconUrl: "qrc:/tsc/pihole_logo_40x40.png"
 
 	property bool messageShown : false
 
 // Save button
 	onShown: {
 		addCustomTopRightButton("Opslaan");
-		showDBIconToggle.isSwitchedOn = app.showDBIcon;
+		showAppIconToggle.isSwitchedOn = app.showAppIcon;
 		ipadresLabel.inputText = app.ipadres;
 		poortnummerLabel.inputText = app.poortnummer;
 		messageShown = false;
@@ -69,7 +69,7 @@ Screen {
 	}
 	
 	OnOffToggle {
-		id: showDBIconToggle
+		id: showAppIconToggle
 		height: 36
 		anchors {
 			right: parent.right
@@ -78,7 +78,7 @@ Screen {
 		}
 		leftIsSwitchedOn: false
 		onSelectedChangedByUser: {
-			app.showDBIcon = isSwitchedOn
+			app.showAppIcon = isSwitchedOn
 		}
 	}
 

@@ -7,7 +7,7 @@ App {
 	id: root
 
 	property url trayUrl : "PiholestatsTray.qml";
-	property url thumbnailIcon: "qrc:/tsc/DomoticzSystrayIcon.png"
+	property url thumbnailIcon: "qrc:/tsc/pihole_logo_40x40.png"
 	property url menuScreenUrl : "PiholestatsSettings.qml"
 	property url piholeScreenUrl : "PiholestatsScreen.qml"
 	property url piholeTileUrl : "PiholestatsTile.qml"
@@ -15,10 +15,10 @@ App {
 	property PiholestatsScreen piholeScreen
 
 	property SystrayIcon piholeTray
-	property bool showDBIcon : true
+	property bool showAppIcon : true
 	property variant piholeConfigJSON
 
-	// Domoticz data in XML string format
+	// data in XML string format
 	property bool piholeDataRead: false
 	
 	property string timeStr
@@ -45,7 +45,7 @@ App {
 		registry.registerWidget("systrayIcon", trayUrl, this, "piholeTray");
 		registry.registerWidget("screen", piholeScreenUrl, this, "piholeScreen");
 		registry.registerWidget("screen", menuScreenUrl, this, "piholeSettings");
-		registry.registerWidget("menuItem", null, this, null, {objectName: "DBMenuItem", label: qsTr("DB-settings"), image: thumbnailIcon, screenUrl: menuScreenUrl, weight: 120});
+		registry.registerWidget("menuItem", null, this, null, {objectName: "AppMenuItem", label: qsTr("Pi-Hole"), image: thumbnailIcon, screenUrl: menuScreenUrl, weight: 120});
 		registry.registerWidget("tile", piholeTileUrl, this, null, {thumbLabel: "PiHole", thumbIcon: thumbnailIcon, thumbCategory: "general", thumbWeight: 30, baseTileWeight: 10, thumbIconVAlignment: "center"});
 	}
 
@@ -54,7 +54,7 @@ App {
 		// read user settings
 		try {
 			userSettingsJSON = JSON.parse(userSettingsFile.read());
-			showDBIcon  = (userSettingsJSON['ShowTrayIcon'] == "yes") ? true : false
+			showAppIcon  = (userSettingsJSON['ShowTrayIcon'] == "yes") ? true : false
 			connectionPath = userSettingsJSON['connectionPath'];
 			var splitVar = connectionPath.split(":")
 			ipadres = splitVar[0];
@@ -78,7 +78,7 @@ App {
 
  		var tmpUserSettingsJSON = {
 			"connectionPath" : ipadres + ":" + poortnummer,
-			"ShowTrayIcon" : (showDBIcon) ? "yes" : "no"
+			"ShowTrayIcon" : (showAppIcon) ? "yes" : "no"
 		}
 
   		var doc3 = new XMLHttpRequest();
