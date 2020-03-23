@@ -1,3 +1,9 @@
+0.0.9
+- fixed "Opslaan" button bug
+- fixed code error with Tile
+- cleaned code in App
+- rounded percentage in Tile
+
 0.0.8
 - coded Screen
 - small edits in Tile

@@ -24,64 +24,32 @@ Tile {
 			pixelSize: isNxt ? 25 : 20
 		}
 		color: colors.waTileTextColor
-//       	visible: !dimState
 	}
 // line 1 text
 	Text {
 		id: tileline1
-		text: "Status: "
+		text: "Ads blocked today: "
 		color: colors.clockTileColor
 		anchors {
 			top: tiletitle.bottom
-			baseline: parent.top
-			baselineOffset: isNxt ? 62 : 50
 			left: parent.left
 			leftMargin:  isNxt ? 10 : 8  
 		}
-		font.pixelSize: isNxt ? 20 : 16
+		font.pixelSize: isNxt ? 25 : 20
 		font.family: qfont.italic.name
-//       	visible: !dimState
-	}
-// line 1 value
-	Text {
-		id: valueline1
-		text: app.piholeConfigJSON['status'];
-		color: colors.clockTileColor
-		anchors {
-			top: tileline1.top
-			right: parent.right
-			rightMargin:  isNxt ? 25 : 20 
-		}
-		font.pixelSize: isNxt ? 20 : 16
-		font.family: qfont.italic.name
-//       	visible: !dimState
 	}
 
 // line 2 text
 	Text {
 		id: tileline2
-		text: "Ads blocked today: "
+		text: app.piholeConfigJSON['ads_blocked_today'];
 		color: colors.clockTileColor
 		anchors {
 			left: tileline1.left
 			top: tileline1.bottom 
 		}
-		font.pixelSize: isNxt ? 20 : 16
+		font.pixelSize: isNxt ? 25 : 20
 		font.family: qfont.italic.name
-//       	visible: !dimState
-	}
-// line 2 value
-	Text {
-		id: valueline2
-		text: app.piholeConfigJSON['ads_blocked_today'];
-		color: colors.clockTileColor
-		anchors {
-			top: tileline2.top
-			left: valueline1.left
-		}
-		font.pixelSize: isNxt ? 20 : 16
-		font.family: qfont.italic.name
-//       	visible: !dimState
 	}
 
 // line 3 text
@@ -93,22 +61,20 @@ Tile {
 			left: tileline2.left
 			top: tileline2.bottom 
 		}
-		font.pixelSize: isNxt ? 20 : 16
+		font.pixelSize: isNxt ? 25 : 20
 		font.family: qfont.italic.name
-//       	visible: !dimState
-	}
-// line 3 value
-	Text {
-		id: valueline3
-		text: app.piholeConfigJSON['ads_percentage_today'];
-		color: colors.clockTileColor
-		anchors {
-			top: tileline3.top
-			left: valueline2.left
-		}
-		font.pixelSize: isNxt ? 20 : 16
-		font.family: qfont.italic.name
-//       	visible: !dimState
 	}
 
+// line 4 text
+	Text {
+		id: tileline4
+		text: Math.round(app.piholeConfigJSON['ads_percentage_today']) + " %";
+		color: colors.clockTileColor
+		anchors {
+			left: tileline3.left
+			top: tileline3.bottom 
+		}
+		font.pixelSize: isNxt ? 25 : 20
+		font.family: qfont.italic.name
+	}
 }

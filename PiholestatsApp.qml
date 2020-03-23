@@ -13,17 +13,15 @@ App {
 	property url piholeTileUrl : "PiholestatsTile.qml"
 	property PiholestatsSettings piholeSettings
 	property PiholestatsScreen piholeScreen
-
+	property bool dialogShown : false  //shown when changes have been. Shown only once.
+	
 	property SystrayIcon piholeTray
 	property bool showAppIcon : true
-//	property bool firstTimeShown : true
+	property bool firstTimeShown : true
 	property variant piholeConfigJSON
-//	property variant piholePHPData
 
 // data in XML string format
 	property bool piholeDataRead: false
-//	property string timeStr
-//	property string dateStr
 	property string connectionPath
 	property string ipadres
 	property string poortnummer : "80"
