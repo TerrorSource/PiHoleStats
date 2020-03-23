@@ -79,7 +79,6 @@ Screen {
 				anchors {
 					left: parent.left
 					leftMargin: isNxt ? 62 : 50
-					top: parent.bottom
 					topMargin: isNxt ? 13 : 10
 				}
 			}

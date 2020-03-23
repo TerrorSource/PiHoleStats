@@ -1,3 +1,6 @@
+0.1.2
+- fixed bug in Screen
+
 0.1.1
 - build in checks for empty settings and incorrect server
 - cleaned code in App
