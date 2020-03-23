@@ -118,7 +118,7 @@ App {
 // Timer in s * 1000
 	Timer {
 		id: datetimeTimer
-		interval: isNxt ? 15000 : 15000
+		interval: isNxt ? 5000 : 5000
 		running: false
 		repeat: true
 		onTriggered: refreshScreen()
