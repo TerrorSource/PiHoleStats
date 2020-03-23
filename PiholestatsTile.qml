@@ -55,7 +55,9 @@ Tile {
              		pixelSize: isNxt ? 20 : 16
         	}
         	color: colors.clockTileColor
-        	text: "text"
+//        	text: "text"
+			text: "ads_blocked_today: " + app.piholeConfigJSON['ads_blocked_today'];
+
     	}
 
 }

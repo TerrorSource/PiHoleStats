@@ -16,18 +16,20 @@ App {
 
 	property SystrayIcon piholeTray
 	property bool showAppIcon : true
+	property bool firstTimeShown : true
 	property variant piholeConfigJSON
+//	property variant piholePHPData
 
-	// data in XML string format
+// data in XML string format
 	property bool piholeDataRead: false
-	
-	property string timeStr
-	property string dateStr
+//	property string timeStr
+//	property string dateStr
 	property string connectionPath
 	property string ipadres
 	property string poortnummer : "80"
 
-	property bool firstTimeShown : true
+// data vars
+
 
 // user settings from config file
 	property variant userSettingsJSON : {
@@ -59,7 +61,7 @@ App {
 			var splitVar = connectionPath.split(":")
 			ipadres = splitVar[0];
 			poortnummer = splitVar[1];
-			if (poortnummer.length < 2) poortnummer = "8080";		
+			if (poortnummer.length < 2) poortnummer = "80";		
 		} catch(e) {
 		}
 
@@ -69,7 +71,7 @@ App {
 // refresh screen
 	function refreshScreen() {
 		piholeDataRead = false;
-		readpiholeConfig();
+		readPiHolePHPData();
 	}
 
 // save user settings
@@ -87,26 +89,36 @@ App {
 	}
 
 // read json file
-	function readpiholeConfig() {
+    function readPiHolePHPData()  {
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.open("GET", "http://"+connectionPath+"/admin/api.php", true);
+		xmlhttp.onreadystatechange = function() {
+            if (xmlhttp.readyState == XMLHttpRequest.DONE) {
+//				console.log("*****PiHole response:" + xmlhttp.responseText);
 
-		var xmlhttp = new XMLHttpRequest();
-		xmlhttp.onreadystatechange=function() {
-			if (xmlhttp.readyState == 4) {
-				if (xmlhttp.status == 200) {
-					piholeConfigJSON = JSON.parse(xmlhttp.responseText); 
-					convertToXML();
-				}
-			}
-		}
-		xmlhttp.open("GET", "http://"+connectionPath+"/json.htm?type=devices&filter=all&used=true&order=Name", true);
-//		xmlhttp.open("GET", "http://127.0.0.1/hdrv_zwave/piholeconfig.txt", true);
-		xmlhttp.send();
+                saveInbox(xmlhttp.responseText);
+                piholeConfigJSON = JSON.parse(xmlhttp.responseText);
+//				console.log("*****PiHole JSON value ['gravity_last_updated']['file_exists']:" + piholeConfigJSON['gravity_last_updated']['file_exists']);
+//				tmp_domains_being_blocked = piholeConfigJSON['domains_being_blocked'];
+//				console.log("***** PiHole tmp_domains_being_blocked: " + piholeConfigJSON['domains_being_blocked']);
+
+            }
+        }
+        xmlhttp.send();
+    }
+
+// save json data in json file
+	function saveInbox(text) {
+		
+  		var doc3 = new XMLHttpRequest();
+   		doc3.open("PUT", "file:///var/volatile/tmp/pihole_retrieved_data.json");
+   		doc3.send(text);
 	}
-
-// Timer
+	
+// Timer in s * 1000
 	Timer {
 		id: datetimeTimer
-		interval: isNxt ? 15000 : 60000
+		interval: isNxt ? 15000 : 15000
 		running: false
 		repeat: true
 		onTriggered: refreshScreen()

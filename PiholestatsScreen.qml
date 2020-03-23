@@ -31,18 +31,58 @@ Screen {
 		height: isNxt ? 55 : 45
 		width: parent.width
 
+// header
 		Text {
 			id: headerText
-			text: "Informatie:" 
+			text: "Pi-Hole stats:" 
 			font.family: qfont.semiBold.name
 			font.pixelSize: isNxt ? 25 : 20
 			anchors {
 				left: parent.left
-				leftMargin: isNxt ? 25 : 20
-				bottom: parent.bottom
+				leftMargin: isNxt ? 62 : 50
+				bottom: parent.headerText2
 			}
 		}
-
+// line 1
+		Text {
+			id: info_line1
+			text: "domains_being_blocked: " + app.piholeConfigJSON['domains_being_blocked'];
+			font.family: qfont.semiBold.name
+			font.pixelSize: isNxt ? 25 : 20
+			anchors {
+				left: parent.left
+				leftMargin: isNxt ? 62 : 50
+				top: headerText.bottom
+				topMargin: isNxt ? 20 : 15
+			}
+		}
+// line 2
+		Text {
+			id: info_line2
+			text: "dns_queries_today: " + app.piholeConfigJSON['dns_queries_today'];
+			font.family: qfont.semiBold.name
+			font.pixelSize: isNxt ? 25 : 20
+			anchors {
+				left: parent.left
+				leftMargin: isNxt ? 62 : 50
+				top: info_line1.bottom
+				topMargin: isNxt ? 20 : 15
+			}
+		}
+// line 3
+		Text {
+			id: info_line3
+			text: "ads_blocked_today: " + app.piholeConfigJSON['ads_blocked_today'];
+			font.family: qfont.semiBold.name
+			font.pixelSize: isNxt ? 25 : 20
+			anchors {
+				left: parent.left
+				leftMargin: isNxt ? 62 : 50
+				top: info_line2.bottom
+				topMargin: isNxt ? 20 : 15
+			}
+		}
+// refresh icon
 		IconButton {
 			id: refreshButton
 			anchors.right: parent.right
@@ -55,6 +95,7 @@ Screen {
 			onClicked: app.refreshScreen()
 		}
 	}
+
 
 // Timer
 //	Timer {
