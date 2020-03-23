@@ -26,11 +26,16 @@ App {
 	property string ipadres
 	property string poortnummer : "80"
     property int refreshrate  : 60	// interval to retrieve data
-	
+
+//data vars
+	property string tmp_ads_blocked_today
+	property string tmp_ads_percentage_today
+
 // user settings from config file
 	property variant userSettingsJSON : {
 		'connectionPath': [],
-		'ShowTrayIcon': ""
+		'ShowTrayIcon': "",
+		'refreshrate': ""
 	}
 
 // location of settings file
@@ -62,7 +67,6 @@ App {
 		} catch(e) {
 		}
 		refreshScreen();
-//		datetimeTimer.start();
 	}
 
 // refresh screen
@@ -88,22 +92,42 @@ App {
 
 // read json file
     function readPiHolePHPData()  {
-        var xmlhttp = new XMLHttpRequest();
-        xmlhttp.open("GET", "http://"+connectionPath+"/admin/api.php", true);
-		xmlhttp.onreadystatechange = function() {
-            if (xmlhttp.readyState == XMLHttpRequest.DONE) {
-//				console.log("*****PiHole response:" + xmlhttp.responseText);
+//		console.log("*****PiHole connectionPath:" + connectionPath);
+		if ( connectionPath.length > 4 ) {
+			var xmlhttp = new XMLHttpRequest();
+			xmlhttp.open("GET", "http://"+connectionPath+"/admin/api.php", true);
+			xmlhttp.onreadystatechange = function() {
+				if (xmlhttp.readyState == XMLHttpRequest.DONE) {
 
-//                saveJSON(xmlhttp.responseText);
-                piholeConfigJSON = JSON.parse(xmlhttp.responseText);
-//				console.log("*****PiHole JSON value ['gravity_last_updated']['file_exists']:" + piholeConfigJSON['gravity_last_updated']['file_exists']);
+					if (xmlhttp.status === 200) {
+//					console.log("*****PiHole response:" + xmlhttp.responseText);
+//       	         saveJSON(xmlhttp.responseText);
+					piholeConfigJSON = JSON.parse(xmlhttp.responseText);
+					
+					tmp_ads_blocked_today = piholeConfigJSON['ads_blocked_today'];
+//					console.log("*****PiHole tmp_ads_blocked_today: " + tmp_ads_blocked_today);
+// last				tmp_ads_percentage_today = piholeConfigJSON['ads_percentage_today'];
+					tmp_ads_percentage_today = Math.round(piholeConfigJSON['ads_percentage_today']) + " %";
+//					console.log("*****PiHole tmp_ads_percentage_today: " + tmp_ads_percentage_today);
+					} else {
+					tmp_ads_blocked_today = "server incorrect";
+//					console.log("*****PiHole tmp_ads_blocked_today: "+ tmp_ads_blocked_today);
+					tmp_ads_percentage_today = "server incorrect";
+//					console.log("*****PiHole tmp_ads_percentage_today: "+ tmp_ads_percentage_today);
 
-            }
-        }
+					}
+				}
+			}
+		} else {
+			tmp_ads_blocked_today = "empty settings";
+//			console.log("*****PiHole tmp_ads_blocked_today: "+ tmp_ads_blocked_today);
+			tmp_ads_percentage_today = "empty settings";
+//			console.log("*****PiHole tmp_ads_percentage_today: "+ tmp_ads_percentage_today);
+		}
         xmlhttp.send();
     }
 
-// save json data in json file
+// save json data in json file. Optional, see readPiHolePHPData
 	function saveJSON(text) {
 		
   		var doc3 = new XMLHttpRequest();
@@ -114,7 +138,6 @@ App {
 // Timer in s * 1000
 	Timer {
 		id: datetimeTimer
-//		interval: 5000
 		interval: refreshrate * 1000;
 		running: false
 		repeat: true

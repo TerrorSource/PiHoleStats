@@ -27,14 +27,6 @@ Screen {
 		hide();
 	}
 
-// not used
-	function showMessage() {
-		if (!app.dialogShown) {
-				qdialog.showDialog(qdialog.SizeLarge, "Pi-Hole mededeling", "Als U op 'Opslaan' drukt zal de configuratie opnieuw worden ingeladen,\nde Toon heeft even wat tijd nodig om dit uit te voeren." , "Sluiten");
-				messageShown = true;
-		}
-	}
-	
 // Save IP Address
 	function saveIpadres(text) {
 		if (text) {
@@ -174,5 +166,5 @@ Screen {
 			qkeyboard.open("Voer hier de refresh rate in", refreshrateLabel.inputText, saveRefreshRate);
 		}
 	}
-// end port number		
+// end refresh rate	
 }

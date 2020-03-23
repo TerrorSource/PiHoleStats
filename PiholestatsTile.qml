@@ -42,7 +42,7 @@ Tile {
 // line 2 text
 	Text {
 		id: tileline2
-		text: app.piholeConfigJSON['ads_blocked_today'];
+		text: app.tmp_ads_blocked_today
 		color: colors.clockTileColor
 		anchors {
 			left: tileline1.left
@@ -68,7 +68,7 @@ Tile {
 // line 4 text
 	Text {
 		id: tileline4
-		text: Math.round(app.piholeConfigJSON['ads_percentage_today']) + " %";
+		text: app.tmp_ads_percentage_today
 		color: colors.clockTileColor
 		anchors {
 			left: tileline3.left

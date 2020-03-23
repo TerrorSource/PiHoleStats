@@ -1,3 +1,9 @@
+0.1.1
+- build in checks for empty settings and incorrect server
+- cleaned code in App
+- cleaned code in Settings
+- fixed Screen anchor error
+
 0.1.0
 - added editable refresh rate
 - 
