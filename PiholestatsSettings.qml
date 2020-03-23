@@ -22,20 +22,24 @@ Screen {
 		app.saveSettings();
 		app.firstTimeShown = true; 
 		app.piholeDataRead = false;
-		app.readpiholeConfig();
+		app.readPiHolePHPData();
 		hide();
 	}
 
 // not used
 	function showMessage() {
 		if (!messageShown) {
-			if (!isNxt) {
 				qdialog.showDialog(qdialog.SizeLarge, "Pi-Hole mededeling", "Als U op 'Opslaan' drukt zal de configuratie opnieuw worden ingeladen,\nde Toon heeft even wat tijd nodig om dit uit te voeren." , "Sluiten");
 				messageShown = true;
-			}
 		}
 	}	
-
+	function showMessage() {
+		if (!app.dialogShown) {
+				qdialog.showDialog(qdialog.SizeLarge, "Pi-Hole mededeling", "Als U op 'Opslaan' drukt zal de configuratie opnieuw worden ingeladen,\nde Toon heeft even wat tijd nodig om dit uit te voeren." , "Sluiten");
+				messageShown = true;
+		}
+	}
+	
 // Save IP Address
 	function saveIpadres(text) {
 		if (text) {

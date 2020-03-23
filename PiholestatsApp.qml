@@ -16,7 +16,7 @@ App {
 
 	property SystrayIcon piholeTray
 	property bool showAppIcon : true
-	property bool firstTimeShown : true
+//	property bool firstTimeShown : true
 	property variant piholeConfigJSON
 //	property variant piholePHPData
 
@@ -27,9 +27,6 @@ App {
 	property string connectionPath
 	property string ipadres
 	property string poortnummer : "80"
-
-// data vars
-
 
 // user settings from config file
 	property variant userSettingsJSON : {
@@ -96,11 +93,9 @@ App {
             if (xmlhttp.readyState == XMLHttpRequest.DONE) {
 //				console.log("*****PiHole response:" + xmlhttp.responseText);
 
-                saveInbox(xmlhttp.responseText);
+//                saveJSON(xmlhttp.responseText);
                 piholeConfigJSON = JSON.parse(xmlhttp.responseText);
 //				console.log("*****PiHole JSON value ['gravity_last_updated']['file_exists']:" + piholeConfigJSON['gravity_last_updated']['file_exists']);
-//				tmp_domains_being_blocked = piholeConfigJSON['domains_being_blocked'];
-//				console.log("***** PiHole tmp_domains_being_blocked: " + piholeConfigJSON['domains_being_blocked']);
 
             }
         }
@@ -108,7 +103,7 @@ App {
     }
 
 // save json data in json file
-	function saveInbox(text) {
+	function saveJSON(text) {
 		
   		var doc3 = new XMLHttpRequest();
    		doc3.open("PUT", "file:///var/volatile/tmp/pihole_retrieved_data.json");
@@ -118,7 +113,7 @@ App {
 // Timer in s * 1000
 	Timer {
 		id: datetimeTimer
-		interval: isNxt ? 5000 : 5000
+		interval: 5000
 		running: false
 		repeat: true
 		onTriggered: refreshScreen()
