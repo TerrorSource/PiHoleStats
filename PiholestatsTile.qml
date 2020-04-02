@@ -23,13 +23,13 @@ Tile {
 			family: qfont.bold.name
 			pixelSize: isNxt ? 25 : 20
 		}
-		color: colors.waTileTextColor
+		color: (typeof dimmableColors !== 'undefined') ? dimmableColors.waTileTextColor : colors.waTileTextColor
 	}
 // line 1 text
 	Text {
 		id: tileline1
 		text: "Ads blocked today: "
-		color: colors.clockTileColor
+		color: (typeof dimmableColors !== 'undefined') ? dimmableColors.clockTileColor : colors.clockTileColor
 		anchors {
 			top: tiletitle.bottom
 			left: parent.left
@@ -43,7 +43,7 @@ Tile {
 	Text {
 		id: tileline2
 		text: app.tmp_ads_blocked_today
-		color: colors.clockTileColor
+		color: (typeof dimmableColors !== 'undefined') ? dimmableColors.clockTileColor : colors.clockTileColor
 		anchors {
 			left: tileline1.left
 			top: tileline1.bottom 
@@ -56,7 +56,7 @@ Tile {
 	Text {
 		id: tileline3
 		text: "Percentage blocked: "
-		color: colors.clockTileColor
+		color: (typeof dimmableColors !== 'undefined') ? dimmableColors.clockTileColor : colors.clockTileColor
 		anchors {
 			left: tileline2.left
 			top: tileline2.bottom 
@@ -69,7 +69,7 @@ Tile {
 	Text {
 		id: tileline4
 		text: app.tmp_ads_percentage_today
-		color: colors.clockTileColor
+		color: (typeof dimmableColors !== 'undefined') ? dimmableColors.clockTileColor : colors.clockTileColor
 		anchors {
 			left: tileline3.left
 			top: tileline3.bottom 
