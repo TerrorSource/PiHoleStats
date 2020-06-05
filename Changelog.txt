@@ -1,3 +1,7 @@
+0.1.5
+- added pause/enable/disable buttons in Screen.qml
+- translated english texts to dutch
+
 0.1.4
 - added Token settings
 

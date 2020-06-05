@@ -125,7 +125,7 @@ Screen {
 		height: editportNumberButton.height
 		width: isNxt ? 800 : 600
 		leftTextAvailableWidth: isNxt ? 600 : 480
-		leftText: qsTr("Port (default is 80)")
+		leftText: qsTr("Port (standaard is 80)")
 		anchors {
 			left:parent.left
 			leftMargin: isNxt ? 62 : 50
@@ -153,7 +153,7 @@ Screen {
 		height: editRefreshRateButton.height
 		width: isNxt ? 800 : 600
 		leftTextAvailableWidth: isNxt ? 600 : 480
-		leftText: qsTr("Refresh rate in seconds (default is 60)")
+		leftText: qsTr("Vernieuwen elke x seconden (standaard is 60)")
 		anchors {
 			left:parent.left
 			leftMargin: isNxt ? 62 : 50
@@ -181,7 +181,7 @@ Screen {
 		height: editAuthTokenButton.height
 		width: isNxt ? 800 : 600
 		leftTextAvailableWidth: isNxt ? 600 : 480
-		leftText: qsTr("Authentication Token")
+		leftText: qsTr("Authenticatie token")
 		anchors {
 			left:parent.left
 			leftMargin: isNxt ? 62 : 50
