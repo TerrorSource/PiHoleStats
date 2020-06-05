@@ -138,7 +138,7 @@ App {
    		doc3.open("PUT", "file:///var/volatile/tmp/pihole_retrieved_data.json");
    		doc3.send(text);
 	}
-	
+
 // Timer in s * 1000
 	Timer {
 		id: datetimeTimer

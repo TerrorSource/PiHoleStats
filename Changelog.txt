@@ -1,3 +1,6 @@
+0.1.6
+- added working code for buttons
+
 0.1.5
 - added pause/enable/disable buttons in Screen.qml
 - translated english texts to dutch

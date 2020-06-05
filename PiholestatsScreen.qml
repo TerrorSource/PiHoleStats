@@ -24,6 +24,14 @@ Screen {
 		}
 	}
 
+//send state change
+    function changeState(request) {
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.open("GET", request, true);
+        xmlhttp.send();
+		app.refreshScreen();
+    }
+
 // header
 	Item {
 		id: header
@@ -364,6 +372,9 @@ Screen {
 				rightMargin: isNxt ? 20 : 16
 				bottomMargin: isNxt ? 20 : 16
 			}
+			onClicked: {
+                changeState("http://"+app.connectionPath+"/admin/api.php?disable=30&auth="+app.authtoken);
+            }
 		}
 
 // button 60s
@@ -381,6 +392,9 @@ Screen {
 				rightMargin: isNxt ? 20 : 16
 				bottomMargin: isNxt ? 20 : 16
 			}
+			onClicked: {
+                changeState("http://"+app.connectionPath+"/admin/api.php?disable=60&auth="+app.authtoken);
+            }
 		}
 
 // button 5 min
@@ -398,6 +412,9 @@ Screen {
 				rightMargin: isNxt ? 20 : 16
 				bottomMargin: isNxt ? 20 : 16
 			}
+			onClicked: {
+                changeState("http://"+app.connectionPath+"/admin/api.php?disable=300&auth="+app.authtoken);
+            }
 		}
 
 // button 10 min
@@ -415,7 +432,11 @@ Screen {
 				rightMargin: isNxt ? 20 : 16
 				bottomMargin: isNxt ? 20 : 16
 			}
+			onClicked: {
+                changeState("http://"+app.connectionPath+"/admin/api.php?disable=600&auth="+app.authtoken);
+            }
 		}
+
 // button disable
 		StandardButton {
 			id: disablebutton
@@ -431,6 +452,9 @@ Screen {
 				rightMargin: isNxt ? 20 : 16
 				bottomMargin: isNxt ? 20 : 16
 			}
+			onClicked: {
+                changeState("http://"+app.connectionPath+"/admin/api.php?disable&auth="+app.authtoken);
+            }
 		}
 
 // button enable
@@ -448,6 +472,9 @@ Screen {
 				rightMargin: isNxt ? 20 : 16
 				bottomMargin: isNxt ? 20 : 16
 			}
+			onClicked: {
+                changeState("http://"+app.connectionPath+"/admin/api.php?enable&auth="+app.authtoken);
+            }
 		}
 // end lines
 		color: colors.addDeviceBackgroundRectangle
