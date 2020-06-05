@@ -24,12 +24,32 @@ Screen {
 		}
 	}
 
-// Refresh button
+//send state change
+    function changeState(request) {
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.open("GET", request, true);
+        xmlhttp.send();
+		app.refreshScreen();
+    }
+
+// header
 	Item {
 		id: header
 		height: isNxt ? 55 : 45
 		width: parent.width
-// refresh icon
+
+		Text {
+			id: headerText
+			text: "Pi-Hole live gegevens:" 
+			font.family: qfont.semiBold.name
+			font.pixelSize: isNxt ? 25 : 20
+			anchors {
+				left: parent.left
+				leftMargin: isNxt ? 25 : 20
+				bottom: parent.bottom
+			}
+		}
+
 		IconButton {
 			id: refreshButton
 			anchors.right: parent.right
@@ -43,21 +63,11 @@ Screen {
 		}
 	}
 
-// header
-		Text {
-			id: headerText
-			text: "Pi-Hole live stats:" 
-			font.family: qfont.semiBold.name
-			font.pixelSize: isNxt ? 25 : 20
-			anchors {
-				left: parent.left
-				leftMargin: isNxt ? 62 : 50
-			}
-		}
 
-// block
+
+// block left
 		Rectangle {
-			id: backgroundRect
+			id: content
             visible: true
             anchors {
                 top: header.bottom
@@ -66,7 +76,7 @@ Screen {
                 right: parent.right
                 topMargin: isNxt ? 5 : 5
                 leftMargin: isNxt ? 20 : 16
-                rightMargin: isNxt ? 20 : 16
+                rightMargin: isNxt ? 338 : 270
 				bottomMargin: isNxt ? 20 : 16
             }
 			
@@ -92,14 +102,14 @@ Screen {
 				anchors {
 					top: line1text.top
 					right: parent.right
-					rightMargin:  isNxt ? 125 : 100 
+					rightMargin:  isNxt ? 100 : 80
 				}
 			}
 	
 // line 2 text
 			Text {
 				id: line2text
-				text: "Domains on blocklist: "
+				text: "Domeinen op blocklist: "
 				font.family: qfont.italic.name
 				font.pixelSize: isNxt ? 23 : 18
 				anchors {
@@ -125,7 +135,7 @@ Screen {
 // line 3 text
 			Text {
 				id: line3text
-				text: "DNS queries today: "
+				text: "DNS queries vandaag: "
 				font.family: qfont.italic.name
 				font.pixelSize: isNxt ? 23 : 18
 				anchors {
@@ -151,7 +161,7 @@ Screen {
 // line 4 text
 			Text {
 				id: line4text
-				text: "Ads blocked today: "
+				text: "Reclame vandaag geblokkeerd: "
 				font.family: qfont.italic.name
 				font.pixelSize: isNxt ? 23 : 18
 				anchors {
@@ -177,7 +187,7 @@ Screen {
 // line 5 text
 			Text {
 				id: line5text
-				text: "Percentage blocked: "
+				text: "Percentage geblokkeerd: "
 				font.family: qfont.italic.name
 				font.pixelSize: isNxt ? 23 : 18
 				anchors {
@@ -190,7 +200,7 @@ Screen {
 // line 5 value
 			Text {
 				id: line5value
-				text: app.piholeConfigJSON['ads_percentage_today'];
+				text: app.piholeConfigJSON['ads_percentage_today'] + " %";
 				color: colors.clockTileColor
 				font.family: qfont.italic.name
 				font.pixelSize: isNxt ? 23 : 18
@@ -203,7 +213,7 @@ Screen {
 // line 6 text
 			Text {
 				id: line6text
-				text: "Queries forwarded: "
+				text: "Queries doorgestuurd: "
 				font.family: qfont.italic.name
 				font.pixelSize: isNxt ? 23 : 18
 				anchors {
@@ -255,7 +265,7 @@ Screen {
 // line 8 text
 			Text {
 				id: line8text
-				text: "Total clients ever seen: "
+				text: "Totaal aantal apparaten ooit gezien: "
 				font.family: qfont.italic.name
 				font.pixelSize: isNxt ? 23 : 18
 				anchors {
@@ -281,7 +291,7 @@ Screen {
 // line 9 text
 			Text {
 				id: line9text
-				text: "Unique clients seen: "
+				text: "Unieke apparaten gezien: "
 				font.family: qfont.italic.name
 				font.pixelSize: isNxt ? 23 : 18
 				anchors {
@@ -306,7 +316,7 @@ Screen {
 // line 10 text
 			Text {
 				id: line10text
-				text: "Blocklist last updated: "
+				text: "Blocklist laatst bijgewerkt: "
 				font.family: qfont.italic.name
 				font.pixelSize: isNxt ? 23 : 18
 				anchors {
@@ -332,5 +342,142 @@ Screen {
 		color: colors.addDeviceBackgroundRectangle
 		}
 
+//block right
+		Rectangle {
+		id: content2
+		width: isNxt ? 291 : 233
+		visible: true
+		anchors {
+			top: header.bottom
+			bottom: parent.bottom
+			right: parent.right
+			topMargin: isNxt ? 5 : 5
+			leftMargin: isNxt ? 20 : 16
+			rightMargin: isNxt ? 20 : 16
+			bottomMargin: isNxt ? 20 : 16
+		}
+
+// button 30s
+		StandardButton {
+			id: pause30button
+			width: isNxt ? 250 : 200
+			text: "Pauzeer 30s"
+			leftClickMargin: 3
+			bottomClickMargin: 5
+			anchors {
+				top: content2.top
+				right: content2.right
+				topMargin: isNxt ? 15 : 12
+				leftMargin: isNxt ? 20 : 16
+				rightMargin: isNxt ? 20 : 16
+				bottomMargin: isNxt ? 20 : 16
+			}
+			onClicked: {
+                changeState("http://"+app.connectionPath+"/admin/api.php?disable=30&auth="+app.authtoken);
+            }
+		}
+
+// button 60s
+		StandardButton {
+			id: pause60button
+			width: isNxt ? 250 : 200
+			text: "Pauzeer 60s"
+			leftClickMargin: 3
+			bottomClickMargin: 5
+			anchors {
+				top: pause30button.bottom
+				right: content2.right
+				topMargin: isNxt ? 15 : 12
+				leftMargin: isNxt ? 20 : 16
+				rightMargin: isNxt ? 20 : 16
+				bottomMargin: isNxt ? 20 : 16
+			}
+			onClicked: {
+                changeState("http://"+app.connectionPath+"/admin/api.php?disable=60&auth="+app.authtoken);
+            }
+		}
+
+// button 5 min
+		StandardButton {
+			id: pause300button
+			width: isNxt ? 250 : 200
+			text: "Pauzeer 5 min"
+			leftClickMargin: 3
+			bottomClickMargin: 5
+			anchors {
+				top: pause60button.bottom
+				right: content2.right
+				topMargin: isNxt ? 15 : 12
+				leftMargin: isNxt ? 20 : 16
+				rightMargin: isNxt ? 20 : 16
+				bottomMargin: isNxt ? 20 : 16
+			}
+			onClicked: {
+                changeState("http://"+app.connectionPath+"/admin/api.php?disable=300&auth="+app.authtoken);
+            }
+		}
+
+// button 10 min
+		StandardButton {
+			id: pause600button
+			width: isNxt ? 250 : 200
+			text: "Pauzeer 10 min"
+			leftClickMargin: 3
+			bottomClickMargin: 5
+			anchors {
+				top: pause300button.bottom
+				right: content2.right
+				topMargin: isNxt ? 15 : 12
+				leftMargin: isNxt ? 20 : 16
+				rightMargin: isNxt ? 20 : 16
+				bottomMargin: isNxt ? 20 : 16
+			}
+			onClicked: {
+                changeState("http://"+app.connectionPath+"/admin/api.php?disable=600&auth="+app.authtoken);
+            }
+		}
+
+// button disable
+		StandardButton {
+			id: disablebutton
+			width: isNxt ? 250 : 200
+			text: "Pi-Hole uitschakelen"
+			leftClickMargin: 3
+			bottomClickMargin: 5
+			anchors {
+				top: pause600button.bottom
+				right: content2.right
+				topMargin: isNxt ? 62 : 50
+				leftMargin: isNxt ? 20 : 16
+				rightMargin: isNxt ? 20 : 16
+				bottomMargin: isNxt ? 20 : 16
+			}
+			onClicked: {
+                changeState("http://"+app.connectionPath+"/admin/api.php?disable&auth="+app.authtoken);
+            }
+		}
+
+// button enable
+		StandardButton {
+			id: enablebutton
+			width: isNxt ? 250 : 200
+			text: "Pi-Hole aanzetten"
+			leftClickMargin: 3
+			bottomClickMargin: 5
+			anchors {
+				top: disablebutton.bottom
+				right: content2.right
+				topMargin: isNxt ? 15 : 12
+				leftMargin: isNxt ? 20 : 16
+				rightMargin: isNxt ? 20 : 16
+				bottomMargin: isNxt ? 20 : 16
+			}
+			onClicked: {
+                changeState("http://"+app.connectionPath+"/admin/api.php?enable&auth="+app.authtoken);
+            }
+		}
+// end lines
+		color: colors.addDeviceBackgroundRectangle
+		}
 // closing tag
 }

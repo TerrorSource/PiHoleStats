@@ -16,6 +16,7 @@ Screen {
 		ipadresLabel.inputText = app.ipadres;
 		poortnummerLabel.inputText = app.poortnummer;
 		refreshrateLabel.inputText = app.refreshrate;
+		authtokenLabel.inputText = app.authtoken;
 		messageShown = false;
 	}
 
@@ -49,7 +50,15 @@ Screen {
 			app.refreshrate = text;
 		}
 	}
-	
+
+// Save Authentication token
+	function saveAuthToken(text) {
+		if (text) {
+			authtokenLabel.inputText = text;
+			app.authtoken = text;
+		}
+	}
+
 // systray icon toggle
 	Text {
 		id: systrayText
@@ -116,7 +125,7 @@ Screen {
 		height: editportNumberButton.height
 		width: isNxt ? 800 : 600
 		leftTextAvailableWidth: isNxt ? 600 : 480
-		leftText: qsTr("Port (default is 80)")
+		leftText: qsTr("Port (standaard is 80)")
 		anchors {
 			left:parent.left
 			leftMargin: isNxt ? 62 : 50
@@ -144,7 +153,7 @@ Screen {
 		height: editRefreshRateButton.height
 		width: isNxt ? 800 : 600
 		leftTextAvailableWidth: isNxt ? 600 : 480
-		leftText: qsTr("Refresh rate in seconds (default is 60)")
+		leftText: qsTr("Vernieuwen elke x seconden (standaard is 60)")
 		anchors {
 			left:parent.left
 			leftMargin: isNxt ? 62 : 50
@@ -166,5 +175,33 @@ Screen {
 			qkeyboard.open("Voer hier de refresh rate in", refreshrateLabel.inputText, saveRefreshRate);
 		}
 	}
-// end refresh rate	
+// authentication token
+	EditTextLabel4421 {
+		id: authtokenLabel
+		height: editAuthTokenButton.height
+		width: isNxt ? 800 : 600
+		leftTextAvailableWidth: isNxt ? 600 : 480
+		leftText: qsTr("Authenticatie token")
+		anchors {
+			left:parent.left
+			leftMargin: isNxt ? 62 : 50
+			top: refreshrateLabel.bottom
+			topMargin: isNxt ? 25 : 20
+		}
+	}
+	
+	IconButton {
+		id: editAuthTokenButton
+		width: isNxt ? 50 : 40
+		anchors {
+			left:authtokenLabel.right
+			leftMargin: isNxt ? 12 : 10
+			top: authtokenLabel.top
+		}
+		iconSource: "qrc:/tsc/edit.png"
+			onClicked: {
+			qkeyboard.open("Voer hier de authentication token in", authtokenLabel.inputText, saveAuthToken);
+		}
+	}
+// end	
 }
