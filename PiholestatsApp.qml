@@ -26,6 +26,7 @@ App {
 	property string ipadres
 	property string poortnummer : "80"
     property int refreshrate  : 60	// interval to retrieve data
+	property string authtoken
 
 //data vars
 	property string tmp_ads_blocked_today
@@ -35,7 +36,8 @@ App {
 	property variant userSettingsJSON : {
 		'connectionPath': [],
 		'ShowTrayIcon': "",
-		'refreshrate': ""
+		'refreshrate': "",
+		'authtoken': ""
 	}
 
 // location of settings file
@@ -64,6 +66,7 @@ App {
 			poortnummer = splitVar[1];
 			if (poortnummer.length < 2) poortnummer = "80";
 			refreshrate = userSettingsJSON['refreshrate'];
+			authtoken = userSettingsJSON['authtoken'];
 		} catch(e) {
 		}
 		refreshScreen();
@@ -82,6 +85,7 @@ App {
  		var tmpUserSettingsJSON = {
 			"connectionPath" : ipadres + ":" + poortnummer,
 			"refreshrate" : refreshrate,
+			"authtoken" : authtoken,
 			"ShowTrayIcon" : (showAppIcon) ? "yes" : "no"
 		}
 
