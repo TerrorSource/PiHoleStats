@@ -1,3 +1,6 @@
+0.1.7
+- fixed show/hide system tray icon based on the usersetting
+
 0.1.6
 - added working code for buttons
 
