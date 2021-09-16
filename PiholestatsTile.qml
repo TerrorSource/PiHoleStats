@@ -28,53 +28,65 @@ Tile {
 // line 1 text
 	Text {
 		id: tileline1
-		text: "Ads blocked today: "
+		text: "In de laatste 24 uur is"
 		color: (typeof dimmableColors !== 'undefined') ? dimmableColors.clockTileColor : colors.clockTileColor
 		anchors {
 			top: tiletitle.bottom
-			left: parent.left
-			leftMargin:  isNxt ? 10 : 8  
+			topMargin: isNxt ? 25 : 20
+			horizontalCenter: parent.horizontalCenter
 		}
-		font.pixelSize: isNxt ? 25 : 20
-		font.family: qfont.italic.name
+		font {
+			family: qfont.regular.name
+			pixelSize: isNxt ? 22 : 18
+		}
+		visible: (app.status !== "geen connectie")
 	}
 
 // line 2 text
 	Text {
 		id: tileline2
-		text: app.tmp_ads_blocked_today
+		text: app.tmp_ads_percentage_today + " van het DNS"
 		color: (typeof dimmableColors !== 'undefined') ? dimmableColors.clockTileColor : colors.clockTileColor
 		anchors {
-			left: tileline1.left
 			top: tileline1.bottom 
+			horizontalCenter: parent.horizontalCenter
 		}
-		font.pixelSize: isNxt ? 25 : 20
-		font.family: qfont.italic.name
-	}
-
-// line 3 text
-	Text {
-		id: tileline3
-		text: "Percentage blocked: "
-		color: (typeof dimmableColors !== 'undefined') ? dimmableColors.clockTileColor : colors.clockTileColor
-		anchors {
-			left: tileline2.left
-			top: tileline2.bottom 
+		font {
+			family: qfont.regular.name
+			pixelSize: isNxt ? 22 : 18
 		}
-		font.pixelSize: isNxt ? 25 : 20
-		font.family: qfont.italic.name
+		visible: (app.status !== "geen connectie")
 	}
 
 // line 4 text
 	Text {
 		id: tileline4
-		text: app.tmp_ads_percentage_today
+		text: "verkeer geblokkeerd."
 		color: (typeof dimmableColors !== 'undefined') ? dimmableColors.clockTileColor : colors.clockTileColor
 		anchors {
-			left: tileline3.left
-			top: tileline3.bottom 
+			top: tileline2.bottom 
+			horizontalCenter: parent.horizontalCenter
 		}
-		font.pixelSize: isNxt ? 25 : 20
-		font.family: qfont.italic.name
+		font {
+			family: qfont.regular.name
+			pixelSize: isNxt ? 22 : 18
+		}
+		visible: (app.status !== "geen connectie")
+	}
+
+// line 5 text
+	Text {
+		id: tileline5
+		text: "status: " + app.status
+		color: (typeof dimmableColors !== 'undefined') ? dimmableColors.clockTileColor : colors.clockTileColor
+		anchors {
+			top: tileline4.bottom 
+			topMargin: 15
+			horizontalCenter: parent.horizontalCenter
+		}
+		font {
+			family: qfont.regular.name
+			pixelSize: isNxt ? 22 : 18
+		}
 	}
 }

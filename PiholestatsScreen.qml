@@ -40,7 +40,7 @@ Screen {
 
 		Text {
 			id: headerText
-			text: "Pi-Hole live gegevens:" 
+			text: "Pi-Hole live gegevens (per " + app.lastupdated + ")" 
 			font.family: qfont.semiBold.name
 			font.pixelSize: isNxt ? 25 : 20
 			anchors {
@@ -161,7 +161,7 @@ Screen {
 // line 4 text
 			Text {
 				id: line4text
-				text: "Reclame vandaag geblokkeerd: "
+				text: "Reclame geblokkeerd laatste 24h: "
 				font.family: qfont.italic.name
 				font.pixelSize: isNxt ? 23 : 18
 				anchors {

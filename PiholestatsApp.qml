@@ -25,12 +25,14 @@ App {
 	property string connectionPath
 	property string ipadres
 	property string poortnummer : "80"
-    property int refreshrate  : 60	// interval to retrieve data
+    	property int refreshrate  : 60	// interval to retrieve data
 	property string authtoken
 
 //data vars
 	property string tmp_ads_blocked_today
 	property string tmp_ads_percentage_today
+	property string lastupdated
+	property string status
 
 // user settings from config file
 	property variant userSettingsJSON : {
@@ -70,6 +72,7 @@ App {
 		} catch(e) {
 		}
 		refreshScreen();
+		datetimeTimer.start()
 	}
 
 // refresh screen
@@ -96,7 +99,7 @@ App {
 
 // read json file
     function readPiHolePHPData()  {
-//		console.log("*****PiHole connectionPath:" + connectionPath);
+		status = "geen connectie"
 		if ( connectionPath.length > 4 ) {
 			var xmlhttp = new XMLHttpRequest();
 			xmlhttp.open("GET", "http://"+connectionPath+"/admin/api.php", true);
@@ -104,31 +107,24 @@ App {
 				if (xmlhttp.readyState == XMLHttpRequest.DONE) {
 
 					if (xmlhttp.status === 200) {
-//					console.log("*****PiHole response:" + xmlhttp.responseText);
-//       	         saveJSON(xmlhttp.responseText);
-					piholeConfigJSON = JSON.parse(xmlhttp.responseText);
+						piholeConfigJSON = JSON.parse(xmlhttp.responseText);
 					
-					tmp_ads_blocked_today = piholeConfigJSON['ads_blocked_today'];
-//					console.log("*****PiHole tmp_ads_blocked_today: " + tmp_ads_blocked_today);
-// last				tmp_ads_percentage_today = piholeConfigJSON['ads_percentage_today'];
-					tmp_ads_percentage_today = Math.round(piholeConfigJSON['ads_percentage_today']) + " %";
-//					console.log("*****PiHole tmp_ads_percentage_today: " + tmp_ads_percentage_today);
-					} else {
-					tmp_ads_blocked_today = "server incorrect";
-//					console.log("*****PiHole tmp_ads_blocked_today: "+ tmp_ads_blocked_today);
-					tmp_ads_percentage_today = "server incorrect";
-//					console.log("*****PiHole tmp_ads_percentage_today: "+ tmp_ads_percentage_today);
-
+						tmp_ads_blocked_today = piholeConfigJSON['ads_blocked_today'];
+						tmp_ads_percentage_today = Math.round(piholeConfigJSON['ads_percentage_today']) + "%";
+						status = piholeConfigJSON['status'];
+						var tmp = new Date();
+						lastupdated = tmp.getFullYear() + "-" + ("0" + (tmp.getMonth() + 1)).slice(-2) + "-" + ("0" + tmp.getDate()).slice(-2) + " " + ("0" + tmp.getHours() ).slice(-2) + ":" + ("0" + tmp.getMinutes()).slice(-2);
 					}
-				}
+					} else {
+						tmp_ads_blocked_today = "server incorrect";
+						tmp_ads_percentage_today = "server incorrect";
+					}
 			}
+ 		       	xmlhttp.send();
 		} else {
 			tmp_ads_blocked_today = "empty settings";
-//			console.log("*****PiHole tmp_ads_blocked_today: "+ tmp_ads_blocked_today);
 			tmp_ads_percentage_today = "empty settings";
-//			console.log("*****PiHole tmp_ads_percentage_today: "+ tmp_ads_percentage_today);
 		}
-        xmlhttp.send();
     }
 
 // save json data in json file. Optional, see readPiHolePHPData
