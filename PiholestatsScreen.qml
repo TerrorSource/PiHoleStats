@@ -28,8 +28,8 @@ Screen {
     function changeState(request) {
         var xmlhttp = new XMLHttpRequest();
         xmlhttp.open("GET", request, true);
+ 	if (xmlhttp.readyState == XMLHttpRequest.DONE) app.refreshScreen();
         xmlhttp.send();
-		app.refreshScreen();
     }
 
 // header
@@ -95,7 +95,7 @@ Screen {
 // line 1 value
 			Text {
 				id: line1value
-				text: app.piholeConfigJSON['status'];
+				text: app.piholeConfigJSON['status']
 				color: colors.clockTileColor
 				font.family: qfont.italic.name
 				font.pixelSize: isNxt ? 23 : 18
@@ -373,8 +373,8 @@ Screen {
 				bottomMargin: isNxt ? 20 : 16
 			}
 			onClicked: {
-                changeState("http://"+app.connectionPath+"/admin/api.php?disable=30&auth="+app.authtoken);
-            }
+                		changeState("http://"+app.connectionPath+"/admin/api.php?disable=30&auth="+app.authtoken);
+          		 }
 		}
 
 // button 60s

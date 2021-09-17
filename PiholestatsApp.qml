@@ -19,6 +19,25 @@ App {
 	property bool showAppIcon : true
 	property bool firstTimeShown : true
 	property variant piholeConfigJSON
+	property variant emptyPiholeConfigJSON : {
+		"domains_being_blocked":0,
+		"dns_queries_today":0,
+		"ads_blocked_today":0,
+		"ads_percentage_today":0,
+		"unique_domains":0,
+		"queries_forwarded":0,
+		"queries_cached":0,
+		"clients_ever_seen":0,
+		"unique_clients":0,
+		"dns_queries_all_types":0,
+		"reply_NODATA":0,
+		"reply_NXDOMAIN":0,
+		"reply_CNAME":0,
+		"reply_IP":0,
+		"privacy_level":0,
+		"status":"geen connectie",
+		"gravity_last_updated":{"file_exists":true,"absolute":0,"relative":{"days":0,"hours":0,"minutes":0}}
+	}
 	property bool piholeDataRead: false
 	
 // app settings
@@ -77,7 +96,6 @@ App {
 
 // refresh screen
 	function refreshScreen() {
-		piholeDataRead = false;
 		readPiHolePHPData();
 	}
 
@@ -99,7 +117,8 @@ App {
 
 // read json file
     function readPiHolePHPData()  {
-		status = "geen connectie"
+
+		piholeConfigJSON = emptyPiholeConfigJSON;
 		if ( connectionPath.length > 4 ) {
 			var xmlhttp = new XMLHttpRequest();
 			xmlhttp.open("GET", "http://"+connectionPath+"/admin/api.php", true);
@@ -126,14 +145,6 @@ App {
 			tmp_ads_percentage_today = "empty settings";
 		}
     }
-
-// save json data in json file. Optional, see readPiHolePHPData
-	function saveJSON(text) {
-		
-  		var doc3 = new XMLHttpRequest();
-   		doc3.open("PUT", "file:///var/volatile/tmp/pihole_retrieved_data.json");
-   		doc3.send(text);
-	}
 
 // Timer in s * 1000
 	Timer {

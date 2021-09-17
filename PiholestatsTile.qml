@@ -13,7 +13,7 @@ Tile {
 // Title
 	Text {
 		id: tiletitle
-		text: "PiHole Stats"
+		text: "PiHole Status"
 		anchors {
 			baseline: parent.top
 			baselineOffset: isNxt ? 30 : 24
@@ -24,6 +24,7 @@ Tile {
 			pixelSize: isNxt ? 25 : 20
 		}
 		color: (typeof dimmableColors !== 'undefined') ? dimmableColors.waTileTextColor : colors.waTileTextColor
+       		visible: !dimState || (app.piholeConfigJSON['status'] == "geen connectie")
 	}
 // line 1 text
 	Text {
@@ -39,7 +40,7 @@ Tile {
 			family: qfont.regular.name
 			pixelSize: isNxt ? 22 : 18
 		}
-		visible: (app.status !== "geen connectie")
+		visible: (app.piholeConfigJSON['status'] !== "geen connectie")
 	}
 
 // line 2 text
@@ -55,7 +56,7 @@ Tile {
 			family: qfont.regular.name
 			pixelSize: isNxt ? 22 : 18
 		}
-		visible: (app.status !== "geen connectie")
+		visible: (app.piholeConfigJSON['status'] !== "geen connectie")
 	}
 
 // line 4 text
@@ -71,22 +72,27 @@ Tile {
 			family: qfont.regular.name
 			pixelSize: isNxt ? 22 : 18
 		}
-		visible: (app.status !== "geen connectie")
+		visible: (app.piholeConfigJSON['status'] !== "geen connectie")
 	}
 
 // line 5 text
-	Text {
-		id: tileline5
-		text: "status: " + app.status
-		color: (typeof dimmableColors !== 'undefined') ? dimmableColors.clockTileColor : colors.clockTileColor
+	Rectangle {
+    		color: (app.piholeConfigJSON['status'] == "geen connectie") ? "#FF0000" : dimmableColors.background
 		anchors {
 			top: tileline4.bottom 
 			topMargin: 15
 			horizontalCenter: parent.horizontalCenter
 		}
-		font {
-			family: qfont.regular.name
-			pixelSize: isNxt ? 22 : 18
+    		Text {
+			id: tileline5
+			text: "status: " + app.piholeConfigJSON['status']
+			color: (typeof dimmableColors !== 'undefined') ? dimmableColors.clockTileColor : colors.clockTileColor
+			font {
+				family: qfont.regular.name
+				pixelSize: isNxt ? 22 : 18
+			}
 		}
-	}
+   		width: childrenRect.width
+    		height: childrenRect.height
+    	}
 }

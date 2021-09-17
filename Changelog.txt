@@ -1,7 +1,8 @@
-0.1.8
+0.1.8/9
 - redesigned tile to show more user friendly data
 - added last refresh time to the details screen
 - fixed broken auto update function
+- data reset when connection lost
 
 0.1.7
 - fixed show/hide system tray icon based on the usersetting
