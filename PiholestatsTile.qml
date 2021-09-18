@@ -9,6 +9,7 @@ Tile {
 	onClicked: {
 		stage.openFullscreen(app.piholeScreenUrl);
 	}
+    	bgColor: (app.piholeConfigJSON['status'] == "geen connectie") ? "#FF0000" : dimmableColors.background
 
 // Title
 	Text {

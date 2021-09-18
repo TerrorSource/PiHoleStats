@@ -1,3 +1,7 @@
+0.1.10
+- Tile colored red completely when connection with PiHole has been lost
+  (not in dim state)
+
 0.1.8/9
 - redesigned tile to show more user friendly data
 - added last refresh time to the details screen
