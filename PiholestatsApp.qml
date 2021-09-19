@@ -39,6 +39,10 @@ App {
 		"gravity_last_updated":{"file_exists":true,"absolute":0,"relative":{"days":0,"hours":0,"minutes":0}}
 	}
 	property bool piholeDataRead: false
+	property string tileBackcolor : dimmableColors.background
+	property string stringBackcolor : dimmableColors.background
+	property string stringColor : dimmableColors.clockTileColor
+
 	
 // app settings
 	property string connectionPath
@@ -118,26 +122,40 @@ App {
 // read json file
     function readPiHolePHPData()  {
 
-		piholeConfigJSON = emptyPiholeConfigJSON;
 		if ( connectionPath.length > 4 ) {
 			var xmlhttp = new XMLHttpRequest();
 			xmlhttp.open("GET", "http://"+connectionPath+"/admin/api.php", true);
 			xmlhttp.onreadystatechange = function() {
+
 				if (xmlhttp.readyState == XMLHttpRequest.DONE) {
 
 					if (xmlhttp.status === 200) {
-						piholeConfigJSON = JSON.parse(xmlhttp.responseText);
-					
+						piholeConfigJSON = JSON.parse(xmlhttp.responseText);				
 						tmp_ads_blocked_today = piholeConfigJSON['ads_blocked_today'];
 						tmp_ads_percentage_today = Math.round(piholeConfigJSON['ads_percentage_today']) + "%";
 						status = piholeConfigJSON['status'];
 						var tmp = new Date();
 						lastupdated = tmp.getFullYear() + "-" + ("0" + (tmp.getMonth() + 1)).slice(-2) + "-" + ("0" + tmp.getDate()).slice(-2) + " " + ("0" + tmp.getHours() ).slice(-2) + ":" + ("0" + tmp.getMinutes()).slice(-2);
 					}
-					} else {
-						tmp_ads_blocked_today = "server incorrect";
-						tmp_ads_percentage_today = "server incorrect";
+					if (xmlhttp.status === 0) {
+						piholeConfigJSON = emptyPiholeConfigJSON;
 					}
+					if (piholeConfigJSON['status'] == "geen connectie") {
+						tileBackcolor = "#FF0000";
+						stringBackcolor = "#FF0000";
+						stringColor = "#FFFFFF";
+					} else {
+						if (piholeConfigJSON['status'] == "disabled") {
+							tileBackcolor = "#FFA500";
+							stringBackcolor = "#FFA500";
+							stringColor = "#000000";
+						} else {
+							tileBackcolor = dimmableColors.tileBackground;
+							stringBackcolor = dimmableColors.tileBackground;
+							stringColor = dimmableColors.clockTileColor;
+						}
+					}
+				}
 			}
  		       	xmlhttp.send();
 		} else {

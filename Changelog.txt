@@ -1,6 +1,7 @@
-0.1.10
+0.1.11
 - Tile colored red completely when connection with PiHole has been lost
-  (not in dim state)
+  Tile colored orange when PiHole is disabled
+  (not in dim state a colored status message is shown)
 
 0.1.8/9
 - redesigned tile to show more user friendly data

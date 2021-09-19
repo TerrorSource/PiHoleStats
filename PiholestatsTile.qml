@@ -9,7 +9,13 @@ Tile {
 	onClicked: {
 		stage.openFullscreen(app.piholeScreenUrl);
 	}
-    	bgColor: (app.piholeConfigJSON['status'] == "geen connectie") ? "#FF0000" : dimmableColors.background
+
+	Rectangle {
+		width: piholeTile.width
+		height: piholeTile.height
+		color: dimState ? dimmableColors.tileBackground : app.tileBackcolor
+		radius: 5
+	}
 
 // Title
 	Text {
@@ -78,7 +84,7 @@ Tile {
 
 // line 5 text
 	Rectangle {
-    		color: (app.piholeConfigJSON['status'] == "geen connectie") ? "#FF0000" : dimmableColors.background
+    		color: app.stringBackcolor
 		anchors {
 			top: tileline4.bottom 
 			topMargin: 15
@@ -87,7 +93,7 @@ Tile {
     		Text {
 			id: tileline5
 			text: "status: " + app.piholeConfigJSON['status']
-			color: (typeof dimmableColors !== 'undefined') ? dimmableColors.clockTileColor : colors.clockTileColor
+			color: app.stringColor
 			font {
 				family: qfont.regular.name
 				pixelSize: isNxt ? 22 : 18
@@ -95,5 +101,6 @@ Tile {
 		}
    		width: childrenRect.width
     		height: childrenRect.height
+		visible: (app.piholeConfigJSON['status'] !== "enabled")
     	}
 }
