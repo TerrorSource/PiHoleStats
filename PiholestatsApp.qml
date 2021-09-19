@@ -13,6 +13,7 @@ App {
 	property url piholeTileUrl : "PiholestatsTile.qml"
 	property PiholestatsSettings piholeSettings
 	property PiholestatsScreen piholeScreen
+	property PiholestatsTile piholeTile
 	property bool dialogShown : false  //shown when changes have been. Shown only once.
 	
 	property SystrayIcon piholeTray
@@ -39,10 +40,6 @@ App {
 		"gravity_last_updated":{"file_exists":true,"absolute":0,"relative":{"days":0,"hours":0,"minutes":0}}
 	}
 	property bool piholeDataRead: false
-	property string tileBackcolor : dimmableColors.background
-	property string stringBackcolor : dimmableColors.background
-	property string stringColor : dimmableColors.clockTileColor
-
 	
 // app settings
 	property string connectionPath
@@ -56,6 +53,10 @@ App {
 	property string tmp_ads_percentage_today
 	property string lastupdated
 	property string status
+
+	property string tileColor
+	property string textBgColor
+	property string textColor
 
 // user settings from config file
 	property variant userSettingsJSON : {
@@ -141,18 +142,18 @@ App {
 						piholeConfigJSON = emptyPiholeConfigJSON;
 					}
 					if (piholeConfigJSON['status'] == "geen connectie") {
-						tileBackcolor = "#FF0000";
-						stringBackcolor = "#FF0000";
-						stringColor = "#FFFFFF";
+						tileColor = "#FF0000";
+						textBgColor = "#FF0000";
+						textColor = "#FFFFFF";
 					} else {
 						if (piholeConfigJSON['status'] == "disabled") {
-							tileBackcolor = "#FFA500";
-							stringBackcolor = "#FFA500";
-							stringColor = "#000000";
+							tileColor = "#FFA500";
+							textBgColor = "#FFA500";
+							textColor = "#000000";
 						} else {
-							tileBackcolor = dimmableColors.tileBackground;
-							stringBackcolor = dimmableColors.tileBackground;
-							stringColor = dimmableColors.clockTileColor;
+							tileColor = dimmableColors.tileBackground;
+							textBgColor = dimmableColors.tileBackground;
+							textColor = dimmableColors.clockTileColor;
 						}
 					}
 				}

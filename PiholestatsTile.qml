@@ -10,11 +10,14 @@ Tile {
 		stage.openFullscreen(app.piholeScreenUrl);
 	}
 
-	Rectangle {
-		width: piholeTile.width
-		height: piholeTile.height
-		color: dimState ? dimmableColors.tileBackground : app.tileBackcolor
-		radius: 5
+	Item {  //listener to respond realtime to property changes
+    		property string tileColor: app.tileColor
+    		property string textColor: app.textColor
+    		property string textBgColor: app.textBgColor
+
+    		onTileColorChanged: piholeTile.bgColor = tileColor;
+    		onTextColorChanged: tileline5.color = textColor;
+   		onTextBgColorChanged: text5Rect.color = textBgColor;
 	}
 
 // Title
@@ -84,6 +87,7 @@ Tile {
 
 // line 5 text
 	Rectangle {
+		id: text5Rect
     		color: app.stringBackcolor
 		anchors {
 			top: tileline4.bottom 
