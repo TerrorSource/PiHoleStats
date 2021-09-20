@@ -1,4 +1,4 @@
-0.1.12
+0.1.13
 - Tile colored red completely when connection with PiHole has been lost
   Tile colored orange when PiHole is disabled
   (not in dim state a colored status message is shown)

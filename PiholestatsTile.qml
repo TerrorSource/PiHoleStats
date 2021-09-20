@@ -6,6 +6,25 @@ Tile {
 	id: piholeTile
 	property bool dimState: screenStateController.dimmedColors
 
+	onDimStateChanged: {
+		resetBackgroundColor();
+	}
+
+	function resetBackgroundColor() {
+		if (app.piholeConfigJSON['status'] == "enabled") {
+			fullRectangle.color = dimState ? "#000000" : "#FFFFFF"
+			console.log("PiHole enabled, dim:" + dimState);
+		} else {
+			if (app.piholeConfigJSON['status'] == "disabled") {
+				fullRectangle.color = dimState ? "#000000" : "#FFA500"
+				console.log("PiHole disabled, dim:" + dimState);
+			} else {
+				fullRectangle.color = dimState ? "#000000" : "#FF0000"
+				console.log("PiHole other, dim:" + dimState);
+			}
+		}
+	}
+			
 	onClicked: {
 		stage.openFullscreen(app.piholeScreenUrl);
 	}
@@ -15,10 +34,17 @@ Tile {
     		property string textColor: app.textColor
     		property string textBgColor: app.textBgColor
 
-    		onTileColorChanged: piholeTile.bgColor = tileColor;
+    		onTileColorChanged: resetBackgroundColor();
     		onTextColorChanged: tileline5.color = textColor;
    		onTextBgColorChanged: text5Rect.color = textBgColor;
 	}
+
+    Rectangle {
+	id:fullRectangle	
+      width: piholeTile.width
+      height: piholeTile.height
+      radius: 5
+    }
 
 // Title
 	Text {
@@ -91,7 +117,7 @@ Tile {
     		color: app.stringBackcolor
 		anchors {
 			top: tileline4.bottom 
-			topMargin: 15
+			topMargin: isNxt ? 15 : 10
 			horizontalCenter: parent.horizontalCenter
 		}
     		Text {

@@ -151,7 +151,7 @@ App {
 							textBgColor = "#FFA500";
 							textColor = "#000000";
 						} else {
-							tileColor = dimmableColors.tileBackground;
+							tileColor = "#FFFFFF";
 							textBgColor = dimmableColors.tileBackground;
 							textColor = dimmableColors.clockTileColor;
 						}
