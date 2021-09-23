@@ -1,3 +1,17 @@
+0.1.13
+- Tile colored red completely when connection with PiHole has been lost
+  Tile colored orange when PiHole is disabled
+  (not in dim state a colored status message is shown)
+
+0.1.8/9
+- redesigned tile to show more user friendly data
+- added last refresh time to the details screen
+- fixed broken auto update function
+- data reset when connection lost
+
+0.1.7
+- fixed show/hide system tray icon based on the usersetting
+
 0.1.6
 - added working code for buttons
 

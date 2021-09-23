@@ -28,8 +28,8 @@ Screen {
     function changeState(request) {
         var xmlhttp = new XMLHttpRequest();
         xmlhttp.open("GET", request, true);
+ 	if (xmlhttp.readyState == XMLHttpRequest.DONE) app.refreshScreen();
         xmlhttp.send();
-		app.refreshScreen();
     }
 
 // header
@@ -40,7 +40,7 @@ Screen {
 
 		Text {
 			id: headerText
-			text: "Pi-Hole live gegevens:" 
+			text: "Pi-Hole live gegevens (per " + app.lastupdated + ")" 
 			font.family: qfont.semiBold.name
 			font.pixelSize: isNxt ? 25 : 20
 			anchors {
@@ -95,7 +95,7 @@ Screen {
 // line 1 value
 			Text {
 				id: line1value
-				text: app.piholeConfigJSON['status'];
+				text: app.piholeConfigJSON['status']
 				color: colors.clockTileColor
 				font.family: qfont.italic.name
 				font.pixelSize: isNxt ? 23 : 18
@@ -161,7 +161,7 @@ Screen {
 // line 4 text
 			Text {
 				id: line4text
-				text: "Reclame vandaag geblokkeerd: "
+				text: "Reclame geblokkeerd laatste 24h: "
 				font.family: qfont.italic.name
 				font.pixelSize: isNxt ? 23 : 18
 				anchors {
@@ -373,8 +373,8 @@ Screen {
 				bottomMargin: isNxt ? 20 : 16
 			}
 			onClicked: {
-                changeState("http://"+app.connectionPath+"/admin/api.php?disable=30&auth="+app.authtoken);
-            }
+                		changeState("http://"+app.connectionPath+"/admin/api.php?disable=30&auth="+app.authtoken);
+          		 }
 		}
 
 // button 60s

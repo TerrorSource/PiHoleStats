@@ -5,7 +5,7 @@ import qb.base 1.0
 
 SystrayIcon {
 	id: piholeSystrayIcon
-	visible: true
+	visible: app.showAppIcon
 	posIndex: 8000
 
 	property string objectName: "piholeSystrayIcon"
